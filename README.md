@@ -1,20 +1,15 @@
 <div align="center">
 
-# Funnel Drop Analysis
+# E-Commerce Sales Analytics Dashboard
 
-**Python | Pandas | Matplotlib | Seaborn | SciPy**
+**Power BI | Power Query | DAX**
 
-Finding where users drop off in an online store — and what it is actually costing the business.
+Turning raw online retail transactions into clear answers on sales, customers, and products.
 
-![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python&logoColor=white)
-![Pandas](https://img.shields.io/badge/Pandas-2.x-150458?logo=pandas&logoColor=white)
-![Matplotlib](https://img.shields.io/badge/Matplotlib-3.x-11557C)
-![Seaborn](https://img.shields.io/badge/Seaborn-0.13-4C72B0)
-![SciPy](https://img.shields.io/badge/SciPy-1.x-8CAAE6?logo=scipy&logoColor=white)
-![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?logo=jupyter&logoColor=white)
-
-[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/analytics-ak/funnel-drop-analysis/blob/main/funnel_drop_analysis.ipynb)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/analytics-ak/funnel-drop-analysis/main?labpath=funnel_drop_analysis.ipynb)
+![Power BI](https://img.shields.io/badge/Power%20BI-Dashboard-F2C811?logo=powerbi&logoColor=black)
+![DAX](https://img.shields.io/badge/DAX-Analytics-blue)
+![Power Query](https://img.shields.io/badge/Power%20Query-ETL-success)
+![Git](https://img.shields.io/badge/Git-GitHub-181717?logo=github&logoColor=white)
 
 </div>
 
@@ -22,160 +17,135 @@ Finding where users drop off in an online store — and what it is actually cost
 
 ## The Short Version
 
-5,000 users visited this store. Only 1,010 bought something. That is a 20.2% overall conversion rate.
+This project takes an Online Retail (E-Commerce) transactions dataset and turns it into a 4-page interactive Power BI dashboard.
 
-The other 3,990 users left without buying — and nearly 60% of the total loss happens at one single step: the **Product Page to Cart transition**.
+It generated over **$3.8M** in total revenue, more than **50%** of customers are repeat buyers, and the **United Kingdom** contributes the highest share of revenue.
 
-This analysis finds exactly where the funnel breaks, tests four possible explanations using statistical methods, rules out three of them, and points to the one fix that will have the highest business impact.
+The dashboard covers the full Business Intelligence workflow: Power Query cleaning, star schema data modeling, custom DAX measures, and interactive visuals, built the way e-commerce teams at companies like Flipkart, Amazon, Meesho, and Walmart report on their business.
 
 ---
 
 ## The Core Problem
 
-**2,388 users reached the Product Page and did not add anything to cart.**
+**Raw transaction rows do not tell a business anything on their own.**
 
-That is the biggest drop in the entire funnel. Users are landing on product pages, spending time there, and still leaving without taking action.
+Stakeholders need to know where revenue comes from, which customers keep coming back, and which products carry the business. This dashboard answers those three questions in one place, with filters for time period and country.
 
-Using an industry-standard average order value of $50 and the current 20.2% conversion rate as a baseline — recovering just **10% of those lost Product Page sessions** would add approximately **$11,900 in revenue per 5,000 sessions**. At scale, across real traffic volumes, this number grows significantly.
-
-The problem is not checkout. It is not mobile. It is not where traffic comes from. It is the Product Page itself failing to convince users to act.
-
-![Funnel Analysis](images/01_funnel_analysis.png)
+![Executive Overview](https://github.com/ImTaRunGupTa/E-Commerce_Sales_DashBoard/blob/main/Images/Executive_Overview.png?raw=true)
 
 ---
 
 ## What the Numbers Show
 
-| Funnel Step | Sessions | Drop to Next Step | What It Means |
-|---|---|---|---|
-| Home | 5,000 | 20.26% | Normal drop — most sites see this |
-| Product Page | 3,987 | **59.89%** | **The main problem — nearly 60% leave here** |
-| Cart | 1,599 | 29.77% | Moderate drop — worth watching |
-| Checkout | 1,123 | 10.06% | Low drop — checkout is working fine |
-| Confirmation | 1,010 | — | Final purchases |
-
-Once users add something to the cart, most of them actually finish buying. The battle is not at checkout. It is getting that first item into the cart.
+| Area | Finding | What It Means |
+|---|---|---|
+| Revenue | Over **$3.8M** total | Strong overall sales volume |
+| Retention | **50%+** repeat customers | Customers come back — retention is healthy |
+| Geography | **United Kingdom** leads revenue | Revenue is concentrated in one market |
+| Products | A small group drives most sales | Follows the Pareto principle |
+| Customers | High-value customers generate a large share of revenue | Top accounts are worth protecting |
+| Seasonality | Monthly patterns are visible | Useful for planning inventory and campaigns |
 
 ---
 
-## Four Things Tested — Three Ruled Out
+## Dashboard Pages
 
-Before pointing at the Product Page, four possible explanations were tested properly using statistical methods — not just eyeballing charts.
-
-| Factor | How It Was Tested | Result |
+| Page | Focus | What It Covers |
 |---|---|---|
-| Device type | Chi-square test | **No difference** — p = 0.98. Desktop, mobile, tablet all behave identically |
-| Referral source | Chi-square test | **No difference** — p = 0.47. Google, social, email, direct all convert similarly |
-| Time of visit | Hour and day analysis | **No pattern** — conversion is flat across all hours (20–23%) and all days (18–22%) |
-| Product page engagement | Avg time comparison | **Same for everyone** — buyers and non-buyers both spend ~96–97 seconds on the product page |
-
-All four tested. Three ruled out with statistical confidence. The problem is not traffic quality, not device, not timing. It is the product page itself.
+| **1. Executive Overview** | Big picture | Business KPIs, revenue trends, monthly sales, revenue contribution, product revenue |
+| **2. Sales Performance** | Sales patterns | Monthly quantity sold, revenue by weekday, top revenue products, sales trend |
+| **3. Customer Insights** | Customer behavior | Segmentation, repeat customers, top customers by revenue and orders, country distribution |
+| **4. Product Performance** | Product detail | Product revenue, quantity sold, average selling price, product summary table |
 
 ---
 
 ## What the Data Actually Shows
 
-### The product page is getting attention — just not converting it
+### Executive Overview: the business at a glance
 
-Buyers and non-buyers spend the same amount of time on the product page (~96 seconds). Users are not bouncing immediately. They are reading, looking, and still not clicking Add to Cart. That points to a persuasion problem — not a traffic problem.
+KPIs, monthly revenue trends, and top-performing products in a single view.
 
-![Funnel Drop-Off](images/05_funnel_analysis_premium.png)
-
----
-
-### The first item is everything
-
-Sessions with 0 items in cart have 0% conversion. The moment a user adds just 1 item, conversion jumps to 35–38%. Adding more items after that changes almost nothing.
-
-The entire conversion battle is about getting that first item added. Everything else is secondary.
-
-![Cart Intensity](images/06_conversion_rate_analysis.png)
+![Executive Overview](https://github.com/ImTaRunGupTa/E-Commerce_Sales_DashBoard/blob/main/Images/Executive_Overview.png?raw=true)
 
 ---
 
-### Buyers spend 4x longer on the site — but not on the product page
+### Sales Performance: when and what sells
 
-Non-buyers spend about 90 seconds total on the site. Buyers spend around 388 seconds. The difference is not because buyers read product pages more carefully — both groups spend the same time there. Buyers simply visit more pages because they go through more funnel steps.
+Monthly quantity, weekday revenue patterns, and the products bringing in the most revenue.
 
-![Session Duration](images/04_session_analysis_highres.png)
-
----
-
-### All devices behave the same
-
-Desktop, mobile, and tablet users drop at exactly the same rate at every funnel step. There is no mobile problem here.
-
-![Device Funnel](images/02_device_funnel.png)
-![Device Heatmap](images/03_device_conversions_heatmap.png)
-
-**Chi-square test: p = 0.98** — statistically no difference between devices.
+![Sales Performance](https://github.com/ImTaRunGupTa/E-Commerce_Sales_DashBoard/blob/main/Images/Sales%20Performance.png?raw=true)
 
 ---
 
-### Referral source barely matters
+### Customer Insights: who keeps buying
 
-Google converts at ~42%, Social Media at ~38%. The gap is small and not statistically significant. All sources show the same funnel pattern.
+Repeat customer analysis, top customers, order frequency, segmentation, and country-wise distribution.
 
-![Referral Source](images/07_referral_conversion_premium.png)
-
-**Chi-square test: p = 0.47** — no significant difference between referral sources.
+![Customer Insights](https://github.com/ImTaRunGupTa/E-Commerce_Sales_DashBoard/blob/main/Images/Customer%20Insights.png?raw=true)
 
 ---
 
-### Time of visit changes nothing
+### Product Performance: what carries the business
 
-Conversion is flat across every hour of the day and every day of the week. There is no peak time worth targeting.
+Revenue, quantity sold, and average selling price for every product.
 
-![Time Based](images/08_time_based_conversion.png)
-
----
-
-## What Was Expected vs What Actually Happened
-
-| Assumption | Expected | Reality |
-|---|---|---|
-| Biggest drop at Product Page → Cart | ✅ True | 60% drop — confirmed as the main problem |
-| Mobile users convert less | ❌ False | All devices perform identically (p = 0.98) |
-| More time on product page = more likely to buy | ❌ False | Buyers and non-buyers spend the same time there |
-| Social media traffic converts worse | ❌ False | All sources are similar (p = 0.47) |
-| More items in cart = higher conversion | ⚠️ Partially true | First item matters most — after that it flattens |
-
-Three out of five assumptions were wrong. This is why testing with data matters.
+![Product Performance](https://github.com/ImTaRunGupTa/E-Commerce_Sales_DashBoard/blob/main/Images/Product%20Performance.png?raw=true)
 
 ---
 
-## What Should Be Done
+## KPIs Tracked
 
-The highest impact will come from focusing on the Product Page → Cart transition. Everything else has been tested and ruled out.
-
-| Problem | Action | Expected Impact |
-|---|---|---|
-| Users read product pages but do not add to cart | Make the Add to Cart button more prominent and easier to find | Direct impact on the 59.89% drop rate — even a 5% recovery adds ~$6,000 per 5,000 sessions |
-| Users are not convinced to act | Improve product images, descriptions, and pricing clarity | Reduces decision friction at the exact point where users are already engaged |
-| Users do not trust the site enough to buy | Add trust signals — reviews, ratings, return policy, guarantees | Addresses hesitation for users who spend time on the page but still leave |
-| Cart abandonment exists (~589 sessions) | Add cart reminder or urgency signals | Secondary priority — checkout is already working well |
-
-**Fixing the Product Page is the only lever that matters here.** Device, traffic source, and time of visit have all been ruled out. The data is specific about where the problem is.
+| KPI | KPI |
+|---|---|
+| Total Revenue | Average Selling Price (ASP) |
+| Total Orders | Repeat Customers |
+| Total Customers | Repeat Customer Rate |
+| Total Products | Revenue per Customer |
+| Quantity Sold | Orders per Customer |
+| Average Order Value (AOV) | |
 
 ---
 
-## A Note on the Dataset
+## Key Insights
 
-After working through this data, one thing became clear — the numbers across devices, referral sources, and countries are almost identical. In real e-commerce, that never happens. Mobile and desktop always behave differently. Paid and organic traffic always show different patterns.
-
-This dataset is most likely synthetically generated. That is called out in the notebook because recognising data limitations is just as important as the analysis itself.
-
-The analysis approach, funnel logic, statistical tests, and the way findings are connected — all of that works the same whether the data is real or synthetic. But the specific numbers should not be taken as benchmarks for real business decisions.
+| Insight | Detail |
+|---|---|
+| Revenue | Over **$3.8M** generated from online retail transactions |
+| Retention | More than **50%** of customers are repeat buyers |
+| Seasonality | Monthly analysis highlights seasonal purchasing patterns |
+| Geography | The **United Kingdom** contributes the highest share of revenue |
+| Product concentration | A few products contribute most of total sales (Pareto principle) |
+| Customer concentration | High-performing customers generate a substantial portion of revenue |
+| Interactivity | Filters and slicers allow deeper analysis across time periods and countries |
 
 ---
 
-## Data Quality Checks
+## Data Cleaning & Preprocessing
 
-Before any analysis, the data was validated:
+The dataset was prepared in Power Query before any visualization:
 
-- No missing values across all 10 columns
-- Funnel path validation — all 5,000 sessions follow the correct step order. Every session is clean.
-- Timestamps converted to datetime and sorted by session and time
+- Removed duplicate records and completely blank rows
+- Removed cancelled transactions (invoice numbers starting with **C**)
+- Removed records with missing **CustomerID** or missing product descriptions
+- Filtered out zero or negative quantities and unit prices
+- Converted columns to appropriate data types
+- Created a **Revenue** column (Quantity × Unit Price)
+- Extracted **Year**, **Quarter**, **Month**, **Month Number**, and **Weekday** from Invoice Date
+- Ran data validation and quality checks
+
+---
+
+## Data Modeling
+
+| Component | Purpose |
+|---|---|
+| Calendar table | Consistent date handling |
+| Date relationships | Link transactions to the calendar |
+| Star schema | Clean, fast model |
+| Time intelligence functions | Period-over-period analysis |
+| Optimized DAX measures | Reusable KPIs across pages |
+
+**Custom DAX measures:** Total Revenue, Total Orders, Total Customers, Total Products, Quantity Sold, AOV, ASP, Revenue per Customer, Orders per Customer, Repeat Customers, Repeat Customer Rate, Product Revenue, Monthly Revenue, Monthly Orders.
 
 ---
 
@@ -183,12 +153,9 @@ Before any analysis, the data was validated:
 
 | Detail | Info |
 |---|---|
-| **Source** | [Kaggle — E-Commerce Funnel Data](https://www.kaggle.com/datasets/sufya6/e-commerce-customer-journey-click-to-conversion) |
-| **Total Rows** | 12,719 |
-| **Total Sessions** | 5,000 |
-| **Columns** | 10 |
-| **Time Period** | January 2025 – August 2025 |
-| **Type** | Synthetic |
+| **Source** | Online Retail (E-Commerce) Dataset (CSV) |
+| **Contains** | Invoice details, products, customers, quantity sold, unit price, revenue, invoice date, country |
+| **Type** | Transactional |
 
 ---
 
@@ -196,33 +163,33 @@ Before any analysis, the data was validated:
 
 | Tool | Used For |
 |---|---|
-| Python | Data cleaning, analysis, funnel calculations |
-| Pandas | Session-level and page-level data operations |
-| NumPy | Numerical computations |
-| Matplotlib | Funnel charts, bar charts, comparison plots |
-| Seaborn | Heatmaps, violin plots, styled visuals |
-| SciPy | Chi-square statistical tests |
-| Jupyter Notebook | Full analysis in one place, start to finish |
+| Microsoft Power BI | Dashboard development |
+| Power Query | Data cleaning and transformation |
+| DAX | Measures and KPIs |
+| CSV | Data source |
+| Git & GitHub | Version control |
 
 ---
 
 ## Project Structure
 
 ```
-funnel-drop-analysis/
+E-Commerce-Sales-Analytics/
 │
-├── funnel_drop_analysis.ipynb    ← Full analysis notebook
-├── README.md                     ← You are reading this
+├── Dashboard/
+│   └── E-Commerce Sales Dashboard.pbix   ← Full Power BI dashboard
 │
-└── images/
-    ├── 01_funnel_analysis.png
-    ├── 02_device_funnel.png
-    ├── 03_device_conversions_heatmap.png
-    ├── 04_session_analysis_highres.png
-    ├── 05_funnel_analysis_premium.png
-    ├── 06_conversion_rate_analysis.png
-    ├── 07_referral_conversion_premium.png
-    └── 08_time_based_conversion.png
+├── Dataset/
+│   └── Online Retail Dataset.csv
+│
+├── Images/
+│   ├── Executive Overview.png
+│   ├── Sales Performance.png
+│   ├── Customer Insights.png
+│   └── Product Performance.png
+│
+├── README.md                             ← You are reading this
+└── LICENSE
 ```
 
 ---
@@ -231,24 +198,21 @@ funnel-drop-analysis/
 
 1. Clone this repo
    ```bash
-   git clone https://github.com/analytics-ak/funnel-drop-analysis.git
+   git clone https://github.com/ImTaRunGupTa/E-Commerce-Sales-Analytics.git
    ```
-2. Install required libraries
-   ```bash
-   pip install pandas numpy matplotlib seaborn scipy
+2. Install **Microsoft Power BI Desktop**
+3. Open the dashboard file
+   ```text
+   Dashboard/E-Commerce Sales Dashboard.pbix
    ```
-3. Open the notebook
-   ```bash
-   Jupyter Notebook funnel_drop_analysis.ipynb
-   ```
-4. Run all cells — charts generate automatically
+4. Explore the pages using the interactive filters and slicers
 
-This analysis shows that conversion is not limited by traffic or checkout — it is driven by the ability to convert product interest into action at a single critical step.
+This dashboard shows how clean data, a solid model, and well-built measures turn raw transactions into decisions.
 
 ---
 
 ## Author
 
-**Ashish Kumar Dongre**
+**Tarun Gupta**
 
-🔗 [LinkedIn](https://www.linkedin.com/in/ashish-kumar-dongre-742a6217b/) &nbsp;|&nbsp; 💻 [GitHub](https://github.com/analytics-ak/funnel-drop-analysis/) &nbsp;|&nbsp; 📂 [Dataset on Kaggle](https://www.kaggle.com/datasets/sufya6/e-commerce-customer-journey-click-to-conversion)
+🔗 [LinkedIn](https://www.linkedin.com/in/tarungupta190504/) &nbsp;|&nbsp; 💻 [GitHub](https://github.com/ImTaRunGupTa)
